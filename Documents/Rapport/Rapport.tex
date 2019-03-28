@@ -1,0 +1,82 @@
+\documentclass[12pt,a4paper]{report}
+
+%----------------------------------------------------------------------------------------
+%   PACKAGES
+%----------------------------------------------------------------------------------------
+\usepackage[francais]{babel} %French language package
+\usepackage[utf8]{inputenc} %UTF8
+\usepackage[T1]{fontenc} %For the acute french accents
+\usepackage[pdftex]{graphicx} %To add figures in the document
+\usepackage{hyperref} % To make hyperlinks in the document
+\usepackage{mathrsfs} % To include the P symbol for set of subSets
+\usepackage{amsthm} % To add mathematical symbols
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE
+%----------------------------------------------------------------------------------------
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines
+\center
+
+%----------------------------------------------------------------------------------------
+%   LOGOS SECTION
+%----------------------------------------------------------------------------------------
+\includegraphics[scale=0.5]{images/umLogo.png} % Université de Montpellier Logo
+\hspace{\fill}
+\includegraphics[scale=0.25]{images/fdsLogo.jpg} % Faculté de Sciences Logo
+
+%----------------------------------------------------------------------------------------
+%   HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+\textsc{\LARGE M1 Informatique AIGLE}\\[1cm]
+\textsc{\Large \textbf{HMIN232M}}\\[0.25cm]
+\textsc{\large Méthodes de la science des données}\\[0.5cm]
+
+%----------------------------------------------------------------------------------------
+%   TITLE SECTION
+%----------------------------------------------------------------------------------------
+\HRule \\[0.4cm]
+{ \huge \bfseries Projet de classification de données textuelles}\\[0.4cm]
+\HRule \\[0.5cm]
+
+%----------------------------------------------------------------------------------------
+%   AUTHOR AND SUPERVISORS SECTION
+%----------------------------------------------------------------------------------------
+\begin{minipage}{0.4\textwidth}
+\centering \Large
+\textbf{Bachar \textsc{Rima}} % Student
+\textbf{Tasnim \textsc{Shaqura}} % Student
+\textbf{Emile \textsc{Youssef}} % Student
+\end{minipage} \\[0.8cm]
+
+%----------------------------------------------------------------------------------------
+%   DATE SECTION
+%----------------------------------------------------------------------------------------
+{\large 25 avril 2019}\\[1cm]
+\hspace{\fill}
+\vfill % Fill the rest of the page with whitespace
+\end{titlepage}
+
+\tableofcontents
+
+%----------------------------------------------------------------------------------------
+%   INTRODUCTION
+%----------------------------------------------------------------------------------------
+\chapter{Classifieur 1}
+\section{Contexte (Pourquoi ?)}
+\section{Résultats (Quoi ?)}
+
+\chapter{Classifieur 2}
+\section{Contexte (Pourquoi ?)}
+\section{Résultats (Quoi ?)}
+
+\chapter{Classifieur 3}
+\section{Contexte (Pourquoi ?)}
+\section{Résultats (Quoi ?)}
+
+\chapter{Classifieur 4}
+\section{Contexte (Pourquoi ?)}
+\section{Résultats (Quoi ?)}
+
+\end{document}
