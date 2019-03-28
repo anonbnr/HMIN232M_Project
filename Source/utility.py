@@ -10,16 +10,17 @@ from nltk.corpus import wordnet as wn
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn import model_selection, naive_bayes, svm
 from sklearn.metrics import accuracy_score
+from nltk.stem import WordNetLemmatizer
 
 np.random.seed(500)
 
-from nltk.stem import WordNetLemmatizer
-tokens = word_tokenize(phrases[0])
-tokens = [w.lower() for w in tokens]
-print ("Lemmatisation \n")
-wordnet_lemmatizer = WordNetLemmatizer()
-lstemmed = [wordnet_lemmatizer.lemmatize(word,pos='v') for word in tokens]
-print("Lemmatisation : \n",lstemmed)
+
+//tokens = word_tokenize(phrases[0])
+//tokens = [w.lower() for w in tokens]
+//print ("Lemmatisation \n")
+//wordnet_lemmatizer = WordNetLemmatizer()
+//lstemmed = [wordnet_lemmatizer.lemmatize(word,pos='v') for word in tokens]
+//print("Lemmatisation : \n",lstemmed)
 
 
 #Prepare Train and Test Data sets
