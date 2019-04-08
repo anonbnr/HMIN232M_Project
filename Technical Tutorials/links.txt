@@ -1,1 +1,3 @@
 https://medium.com/@bedigunjit/simple-guide-to-text-classification-nlp-using-svm-and-naive-bayes-with-python-421db3a72d34
+https://github.com/andry9454/ironySarcasmDetection
+https://github.com/savithakj/sarcasmDetection
