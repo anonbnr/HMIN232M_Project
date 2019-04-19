@@ -1,3 +1,4 @@
+#MODULES
 import re
 import unicodedata
 import warnings
@@ -25,6 +26,7 @@ DATA_PATH = 'Datasets/dataset.csv'
 TARGET_PATH = 'Datasets/labels.csv'
 TEST_DATA_PATH = 'Datasets/test_data.csv'
 TEST_TARGET_PATH = 'Datasets/test_labels.csv'
+IMDB_DATA_PATH = 'Datasets/imdb_reviews_scores.csv'
 GAUSSIANNB_PATH = 'Classifiers/gaussianNB.pkl'
 LOGISTICREGRESSION_PATH = 'Classifiers/logisticRegression.pkl'
 
