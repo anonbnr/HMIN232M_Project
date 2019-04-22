@@ -1,0 +1,39 @@
+LogisticRegression classifier prediction of IMDB dataset started at 2019-04-19 11:57:38.117498
+
+Time taken to complete prediction: 105.42721581459045 seconds
+
+Accuracy: 0.8505
+Confusion Matrix
+[[4107  893]
+ [ 602 4398]]
+
+Classification Report
+              precision    recall  f1-score   support
+
+          -1       0.87      0.82      0.85      5000
+           1       0.83      0.88      0.85      5000
+
+   micro avg       0.85      0.85      0.85     10000
+   macro avg       0.85      0.85      0.85     10000
+weighted avg       0.85      0.85      0.85     10000
+
+
+
+GaussianNB classifier prediction of IMDB dataset started at 2019-04-19 11:59:23.560473
+
+Time taken to complete prediction: 106.52276062965393 seconds
+
+Accuracy: 0.772
+Confusion Matrix
+[[3634 1366]
+ [ 914 4086]]
+
+Classification Report
+              precision    recall  f1-score   support
+
+          -1       0.80      0.73      0.76      5000
+           1       0.75      0.82      0.78      5000
+
+   micro avg       0.77      0.77      0.77     10000
+   macro avg       0.77      0.77      0.77     10000
+weighted avg       0.77      0.77      0.77     10000

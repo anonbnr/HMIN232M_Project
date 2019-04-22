@@ -1,0 +1,55 @@
+Cross validation started at 2019-04-18 12:38:23.624361
+
+     Time taken to complete cross validation of LogisticRegression: 6.682977199554443 seconds
+     Accuracy scores over 10 evaluations:
+      [0.914 0.911 0.916 0.922 0.932 0.905 0.933 0.924 0.911 0.921]
+     Mean score: 0.9189
+     Standard deviation of scores: 0.008722958213817153
+
+Cross validation started at 2019-04-18 12:39:27.854962
+
+     Time taken to complete cross validation of SGDClassifier: 14.247564554214478 seconds
+     Accuracy scores over 10 evaluations:
+      [0.9   0.909 0.92  0.934 0.94  0.907 0.936 0.925 0.913 0.925]
+     Mean score: 0.9209000000000002
+     Standard deviation of scores: 0.01277849756426787
+
+Cross validation started at 2019-04-18 12:40:48.950553
+
+     Time taken to complete cross validation of DecisionTreeClassifier: 796.7198390960693 seconds
+     Accuracy scores over 10 evaluations:
+      [0.757 0.75  0.763 0.755 0.76  0.739 0.755 0.732 0.751 0.753]
+     Mean score: 0.7515000000000002
+     Standard deviation of scores: 0.008947066558375441
+
+Cross validation started at 2019-04-18 12:59:27.524247
+
+     Time taken to complete cross validation of RandomForestClassifier: 53.930598735809326 seconds
+     Accuracy scores over 10 evaluations:
+      [0.803 0.815 0.813 0.823 0.819 0.833 0.835 0.814 0.799 0.826]
+     Mean score: 0.818
+     Standard deviation of scores: 0.011135528725660019
+
+Cross validation started at 2019-04-18 12:56:18.964747
+
+     Time taken to complete cross validation of GaussianNB: 23.15500497817993 seconds
+     Accuracy scores over 10 evaluations:
+      [0.817 0.841 0.829 0.853 0.836 0.838 0.85  0.847 0.833 0.85 ]
+     Mean score: 0.8394
+     Standard deviation of scores: 0.010650821564555487
+
+Cross validation started at 2019-04-18 19:47:55.137561
+
+     Time taken to complete cross validation of KNeighborsClassifier: 2430.809322834015 seconds
+     Accuracy scores over 10 evaluations:
+      [0.795 0.793 0.805 0.796 0.799 0.778 0.815 0.775 0.817 0.78 ]
+     Mean score: 0.7953
+     Standard deviation of scores: 0.013849548729110253
+
+Cross validation started at 2019-04-18 12:56:42.120080
+
+     Time taken to complete cross validation of LinearSVC: 6.601022243499756 seconds
+     Accuracy scores over 10 evaluations:
+      [0.913 0.915 0.918 0.926 0.944 0.908 0.938 0.92  0.923 0.925]
+     Mean score: 0.923
+     Standard deviation of scores: 0.010497618777608539

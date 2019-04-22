@@ -1,0 +1,44 @@
+
+
+Dataframe des avis
+Size : (10000, 1)
+Head of imported dataset :
+
+	Avis
+0 	Obviously made to show famous 1950s stripper M...
+1 	This film was more effective in persuading me ...
+2 	Unless you are already familiar with the pop s...
+3 	From around the time Europe began fighting Wor...
+4 	Im not surprised that even cowgirls get the bl...
+
+
+
+Dataframe des scores
+Size : (10000, 1)
+Head of imported dataset :
+
+	Score
+0 	-1
+1 	-1
+2 	-1
+3 	-1
+4 	-1
+
+Size : (10000, 2)
+Head of merged dataset :
+
+	Avis 	                                             Score
+0 	Obviously made to show famous 1950s stripper M... 	-1
+1 	This film was more effective in persuading me ... 	-1
+2 	Unless you are already familiar with the pop s... 	-1
+3 	From around the time Europe began fighting Wor... 	-1
+4 	Im not surprised that even cowgirls get the bl... 	-1
+
+Head of shuffled dataset :
+
+	Avis 	                                             Score
+0 	After having read two or three negative review... 	1
+1 	I recently (May 2008) discovered that this chi... 	1
+2 	Pathetic is the word. Bad acting, pathetic scr... 	-1
+3 	Spencer Tracy and Katherine Hepburn would roll... 	-1
+4 	This in my opinion is one of the best action m... 	1

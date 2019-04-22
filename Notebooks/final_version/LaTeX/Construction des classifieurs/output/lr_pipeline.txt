@@ -1,0 +1,24 @@
+LogisticRegression classifier pipeline execution started at 2019-04-19 11:13:34.840659
+
+Time taken to complete pipeline execution: 31.55421018600464 seconds
+
+LogisticRegression classifier prediction started at 2019-04-19 11:14:06.394955
+
+Time taken to complete prediction: 74.41712045669556 seconds
+
+Accuracy: 0.8995714285714286
+Confusion Matrix
+[[3110  373]
+ [ 330 3187]]
+
+Classification Report
+              precision    recall  f1-score   support
+
+          -1       0.90      0.89      0.90      3483
+           1       0.90      0.91      0.90      3517
+
+   micro avg       0.90      0.90      0.90      7000
+   macro avg       0.90      0.90      0.90      7000
+weighted avg       0.90      0.90      0.90      7000
+
+Saving the Logistic Regression pipeline

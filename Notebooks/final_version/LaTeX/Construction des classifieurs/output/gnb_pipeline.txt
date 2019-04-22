@@ -1,0 +1,24 @@
+GaussianNB classifier pipeline execution started at 2019-04-19 11:24:59.808241
+
+Time taken to complete pipeline execution: 34.085160970687866 seconds
+
+GaussianNB classifier prediction started at 2019-04-19 11:25:33.893449
+
+Time taken to complete prediction: 73.48156118392944 seconds
+
+Accuracy: 0.8272857142857143
+Confusion Matrix
+[[2814  669]
+ [ 540 2977]]
+
+Classification Report
+              precision    recall  f1-score   support
+
+          -1       0.84      0.81      0.82      3483
+           1       0.82      0.85      0.83      3517
+
+   micro avg       0.83      0.83      0.83      7000
+   macro avg       0.83      0.83      0.83      7000
+weighted avg       0.83      0.83      0.83      7000
+
+Saving the Gaussian Naive Bayes pipeline

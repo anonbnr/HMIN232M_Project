@@ -1,0 +1,30 @@
+Grid search started at 2019-04-19 09:48:26.619439
+
+Time taken to complete Grid search of LogisticRegression: 68.54148316383362 seconds
+
+         Model: LogisticRegression
+         Best Accuracy Score: 0.9073333333333333
+         Best Estimator: LogisticRegression(C=11.288378916846883, class_weight=None, dual=False,
+           fit_intercept=True, intercept_scaling=1, max_iter=100,
+           multi_class='warn', n_jobs=None, penalty='l2', random_state=None,
+           solver='warn', tol=0.0001, verbose=0, warm_start=False)
+
+Grid search started at 2019-04-18 20:59:28.571292
+
+Time taken to complete Grid search of LinearSVC: 16.8770534992218 seconds
+
+         Model: LinearSVC
+         Best Accuracy Score: 0.9053333333333333
+         Best Estimator: LinearSVC(C=1, class_weight=None, dual=True, fit_intercept=True,
+      intercept_scaling=1, loss='squared_hinge', max_iter=1000,
+      multi_class='ovr', penalty='l2', random_state=None, tol=0.0001,
+      verbose=0)
+
+The best model with the best hyperparameters:
+
+         Model: LogisticRegression
+         Best Accuracy Score: 0.9073333333333333
+         Best Estimator: LogisticRegression(C=11.288378916846883, class_weight=None, dual=False,
+           fit_intercept=True, intercept_scaling=1, max_iter=100,
+           multi_class='warn', n_jobs=None, penalty='l2', random_state=None,
+           solver='warn', tol=0.0001, verbose=0, warm_start=False)
