@@ -176,7 +176,87 @@ Une fois la lemmatisation effectuée, nous joignons les tokens normalisés de ch
 \section{Vectorisation}
 \section{Feature-Engineering}
 \section{Cross validation et calibrage des hyperparamètres}
-\section{Sauvegarde du modèle}
+Une fois la vectorisation effectuée, nous préparons un ensemble de modèles à tester sur l'ensemble des features choisies. Pour assurer la bonne performance des classifieurs, nous utilisons une cross-validation sur 10 partitions différentes du dataset et la métrique \textbf{Accuracy} pour évaluer leurs performances.
+
+Pour chaque modèle, nous calculons le score pour chaque partition, puis le score moyen et la déviation standard de l'ensemble des scores de toutes les partitions.
+Pour ce faire nous utilisons la fonction \texttt{cross\_val\_score()} de la bibliothèque \texttt{scikit-learn} et l'objet \texttt{KFold} pour choisir les partitions et leur nombre et leur préparer pour la cross-validation.
+
+Vu qu'il s'agit d'un problème de classification binaire, les modèles qui paraissent adaptés sont soit \textbf{Logistic Regression}, soit un \textbf{SVM}, soit un modèle probabiliste tel que \textbf{Naive Bayes}, soit un modèle aléatoire adapté au données volumineuses tel que \textbf{Stochastic Gradient Descent}. Mais vu que la science de la données est un domaine empirique, la notion de meilleur modèle pour un dataset n'existe pas vraiment. Nous essayons ainsi ces modèles et d'autres modèles aussi, qu'ils soient adaptés ou pas, afin d'experimenter.
+
+\subsection{Résultats de la cross-validation}
+En appliquant la cross-validation sur l’ensemble des modèles choisis, nous nous retrouvons avec les résultats de la table \ref{table:cross_validation} ordonnés par ordre décroissant sur les scores moyens.
+
+\begin{table}
+  \centering
+  \begin{tabular}{|p{5cm}|c|c|}
+    \hline
+    \textbf{Modèle} & \textbf{Score moyen} & \textbf{Déviation standard}\\
+    \hline
+    \hline
+    LinearSVC & 92\% & 1\%\\
+    \hline
+    SGDClassifier & 92\% & 1\%\\
+    \hline
+    LogisticRegression & 91\% & 0.8\%\\
+    \hline
+    GaussianNB & 84\% & 1\%\\
+    \hline
+    RandomForestClassifier & 81\% & 1\%\\
+    \hline
+    KNeighborsClassifier & 79\% & 1\%\\
+    \hline
+    DecisionTreeClassifier & 75\% & 0.8\%\\
+    \hline
+  \end{tabular}
+  \caption{Résultats de la cross-validation des modèles choisis}
+  \label{table:cross_validation}
+\end{table}
+
+En s'appuyant sur ces résultats, nous choisissons ainsi les modèles \textbf{Logistic Regression} $(91\%,~ 0.8\%)$ et \textbf{Linear SVM} $(92\%,~ 1\%)$ pour continuer l'optimisation de leurs apprentissages. Nous aurons également pu choisir le modèle \textbf{Stochastic Gradient Descent} au lieu du modèle \textbf{Linear SVM}, mais vu que \textbf{Stochastic Gradient Descent} est dépendant du hasard pour avoir une bonne performance, nous ne privilégions pas son utilisation.
+
+\subsection{Calibrage des hyperparamètres des modèles choisis}
+Suite à l'étape de cross-validation, il faut trouver les meilleurs hyperparamètres permettant de raffiner les régions de décision de chaque modèle
+choisi, afin d’avoir les meilleurs prédictions possibles. Ceci est effectué par un une recherche de grille, permettant de tester différentes combinaisons des valeurs des hyperparamètres fournis pour chaque modèle. Pour ce faire nous utilisons l'objet \texttt{GridSearchCV} de la bibliothèque \texttt{scikit-learn}.
+
+Un autre point en faveur de \texttt{GridSearchCV} c'est qu'il permet d'effectuer une cross-validation pour chaque combinaison des hyperparamètres d'un modèle. Nous choisissons ainsi de répéter le processus sur 5 partitions différentes du dataset pour chaque modèle, en utilisant la métrique \textbf{Accuracy} pour évaluer leurs différents calibrages.
+
+Pour le modèle \textbf{Logistic Regression}, les hyperparamètres à calibrer sont :
+\begin{description}
+  \item [C :] la valeur de l’inverse de la régularization pour la régression (sauts de $10^k$ avec $k \in [-4; 4]$)
+  \item [P :] la norme à choisir pour les pénalités ($L_1$ et $L_2$)
+\end{description}
+
+Pour le modèle \textbf{Linear SVM}, nous choisissons de calibrer l'hyperparamètre \texttt{C}, ayant comme valeurs possibles les sauts de $10^k$ avec $k \in [-4; 2]$)
+
+\subsubsection{Résultats du \texttt{GridSearchCV}}
+En appliquant la cross-validation lors de la recherche de grille sur l’ensemble des modèles choisis, nous nous retrouvons avec les résultats de la table \ref{table:gridsearch_cv} ordonnés par ordre décroissant sur les scores moyens.
+
+En s'appuyant sur ces résultats, nous avons choisi le modèle \textbf{Logistic Regression} avec les meilleurs calibrages de ses hyperparamètres ($90\%,~ C = 11.288,~ penalty = L_2)$ pour apprendre le modèle et effectuer la prédiction.
+
+\begin{table}
+  \centering
+  \begin{tabular}{|p{5cm}|c|c|}
+    \hline
+    \textbf{Modèle} & \textbf{Score moyen} & \textbf{Meilleurs calibrages}\\
+    \hline
+    \hline
+    LogisticRegression & 90\% & C = 11.288 ; penalty = $L_2$\\
+    \hline
+    LinearSVC & 90\% & C = 1\\
+    \hline
+  \end{tabular}
+  \caption{Résultats de la cross-validation de la recherche de grille des modèles choisis}
+  \label{table:gridsearch_cv}
+\end{table}
+
+\section{Création d'un pipeline et sérialisation du modèle}
+Après avoir choisi le modèle et ses hyperparamètres calibrés, nous créons un pipeline permettant d'enchaîner les étapes de pré-traitement, la vectorisation et l'apprentissage d'un modèle.
+
+Pour la vectorisation nous utilisons un \texttt{TfidfVectorizer} en lui passant la fonction de pré-traitement wrapper \texttt{preprocess(document)} de l'ensemble des fonctions vu précédemment. Pour l'apprentissage nous utilisons le meilleur modèle et ses hyperparamètres calibrés. Enfin nous sérialisons le modèle appris avec le module python \texttt{pickle} après l'avoir tester et évalué avec différentes mesures d'évaluation (\emph{accuracy,  precision, recall, f1-score, confusion matrix, $\dots$}).
+
+\subsection{Pipeline pour Logistic Regression}
+
+\subsection{Pipeline pour Gaussian Naive Bayes}
 
 \chapter{Optimisation}
 \section{WordCloud}
@@ -185,7 +265,7 @@ Une fois la lemmatisation effectuée, nous joignons les tokens normalisés de ch
 \chapter{Conclusion}
 
 \begin{appendices}
-\chapter{Snapshots de pré-traitement}
+\chapter{Snapshots des pré-traitements}
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.4]{images/snapshots/documents_sample.png}
