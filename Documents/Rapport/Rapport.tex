@@ -10,6 +10,7 @@
 \usepackage{hyperref} % To make hyperlinks in the document
 \usepackage{amsthm} % To add mathematical symbols
 \usepackage{xcolor}
+\usepackage{listingsutf8}
 \usepackage[page,toc,titletoc,title]{appendix} %appendices
 
 \theoremstyle{definition}
@@ -20,6 +21,11 @@
     linkcolor={red!50!black},
     citecolor={blue!50!black},
     urlcolor={blue!80!black}
+}
+
+\lstset{
+  basicstyle=\ttfamily,
+  frame=single
 }
 
 \renewcommand{\appendixtocname}{<Appendices>}
@@ -252,11 +258,36 @@ En s'appuyant sur ces résultats, nous avons choisi le modèle \textbf{Logistic 
 \section{Création d'un pipeline et sérialisation du modèle}
 Après avoir choisi le modèle et ses hyperparamètres calibrés, nous créons un pipeline permettant d'enchaîner les étapes de pré-traitement, la vectorisation et l'apprentissage d'un modèle.
 
-Pour la vectorisation nous utilisons un \texttt{TfidfVectorizer} en lui passant la fonction de pré-traitement wrapper \texttt{preprocess(document)} de l'ensemble des fonctions vu précédemment. Pour l'apprentissage nous utilisons le meilleur modèle et ses hyperparamètres calibrés. Enfin nous sérialisons le modèle appris avec le module python \texttt{pickle} après l'avoir tester et évalué avec différentes mesures d'évaluation (\emph{accuracy,  precision, recall, f1-score, confusion matrix, $\dots$}).
-
 \subsection{Pipeline pour Logistic Regression}
+Le modèle \textbf{Logistic Regression} étant le meilleur modèle choisi et dont les hyperparamètres sont bien calibrés, nous lui créeons un pipeline dédié en utilisant la fonction \texttt{sklearn.pipeline.Pipeline(vectoriser, eventuel\_transformateur, classifier)} en suivant le schéma suivant :
+\begin{enumerate}
+  \item pour la vectorisation, nous utilisons un \texttt{sklearn.feature\_selection.TfidfVectorizer} en lui passant la fonction de pré-traitement wrapper \texttt{preprocess(document)} de l'ensemble des fonctions vu précédemment. Le résultat est une matrice de fréquences des termes, utilisée pour l'apprentissage.
+  \item pour obtenir les jeux d'entraînement et de test, nous utilisons la fonction \texttt{sklearn.model\_selection.train\_test\_split(X, y, training\_size, test\_size, random\_state)}.
+  \item pour l'apprentissage nous utilisons la fonction \texttt{pipeline.fit(training\_features, training\_labels)}.
+  \item pour essayer le modèle appris sur le jeu de données de test afin de prédire les labels associés, nous utilisons la fonction \texttt{pipeline.predict(test\_features)}.
+  \item pour évaluer la performance du modèle appris, nous s'appuyons sur les mesures d'évaluation suivantes avec leurs fonctions correspondantes :
+  \begin{description}
+    \item [accuracy :] \texttt{sklearn.metrics.accuracy\_score(results, test\_labels)} ;
+    \item [confusion matrix :] \texttt{sklearn.metrics.confusion\_matrix(test\_labels, results)} ;
+    \item [precision, recall, f1-score :] \texttt{sklearn.metrics.classification\_report(test\_labels, results)}.
+  \end{description}
+  \item pour sérialiser le modèle appris avec le module \texttt{pickle}, nous utilisons la fonction \texttt{pickle.dump(pipeline, open(pipeline\_file, 'wb'))}.
+\end{enumerate}
+
+Afin d'évaluer davantage la performance du pipeline, nous essayons de prédire les labels de deux datasets :
+\begin{itemize}
+  \item un dataset de test fournis dans le cadre du projet, comportant $4000$ lignes (\emph{$2000$ avis positifs et $2000$ avis négatifs});
+  \item un dataset de reviews \textbf{IMDB}, téléchargé par nous-même, comportant $10000$ lignes (\emph{$5000$ avis positifs et $5000$ avis négatifs}).
+\end{itemize}
+
+Les résultats des prédictions et les évaluations sont consultables dans les figures \ref{fig:lr_fit_test}, \ref{fig:lr_project_dataset} et \ref{fig:lr_imdb_dataset}.
 
 \subsection{Pipeline pour Gaussian Naive Bayes}
+Afin de visualiser l'effet d'utiliser un modèle probabiliste dans le cadre de l'analyse des sentiments, nous décidons de créer un pipeline pour le modèle \textbf{Gaussian Naive Bayes}. Ce modèle n'admet pas d'hyperparamètres à calibrer sauf \texttt{priors}, désignant les probabilités estimées au préalable pour chacune des classes. Toutefois, nous ne touchons pas à cet hyperparamètre afin qu’il s’adapte dynamiquement aux données\footnote{cf. \url{https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html}}.
+
+Le schéma de création d'un pipeline pour le modèle \textbf{Gaussian Naive Bayes} est identique à celui du modèle \textbf{Logistic Regression}, à la différence qu'il faut lui ajouter un transformateur intermédiaire des données, précédant la phase d'apprentissage. En effet, ce modèle travaille avec des matrices denses (\emph{i.e.~dense matrices}) pour apprendre le modèle, au lieu de matrices creuses (\emph{i.e.~sparse matrices}), telles que celles fournies par la vectorisation. Il faut alors utiliser un transformateur permettant d’effectuer cette étape avant l’étape de "\textit{fitting}" du pipeline. Nous définissons donc une classe \texttt{DenseTransformer}, héritant de la classe de base des transformateurs du module \texttt{scikit-learn TransformerMixin}, accomplissant cette tâche et fournissant les données transformées à la phase d’apprentissage.
+
+Enfin nous évaluons la performance du pipeline en l'essayant sur les mêmes datasets utilisés pour le modèle \textbf{Logistic Regression}. Les résultats des prédictions et les évaluations sont consultables dans les figures \ref{fig:gnb_fit_test}, \ref{fig:gnb_project_dataset} et \ref{fig:gnb_imdb_dataset}.
 
 \chapter{Optimisation}
 \section{WordCloud}
@@ -268,93 +299,136 @@ Pour la vectorisation nous utilisons un \texttt{TfidfVectorizer} en lui passant 
 \chapter{Snapshots des pré-traitements}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.4]{images/snapshots/documents_sample.png}
+  \includegraphics[scale=0.4]{images/snapshots/preprocessing/documents_sample.png}
   \caption{échantillon de documents}
   \label{fig:document_sample}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.4]{images/snapshots/replace_contractions.png}
+  \includegraphics[scale=0.4]{images/snapshots/preprocessing/replace_contractions.png}
   \caption{remplacement des expressions contractées dans un document}
   \label{fig:replace_contractions}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.6]{images/snapshots/remove_empty_html_tags.png}
+  \includegraphics[scale=0.6]{images/snapshots/preprocessing/remove_empty_html_tags.png}
   \caption{suppression des balises auto-fermantes d'un document}
   \label{fig:remove_empty_html_tags}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.45]{images/snapshots/remove_urls.png}
+  \includegraphics[scale=0.45]{images/snapshots/preprocessing/remove_urls.png}
   \caption{suppression des URLs d'un document}
   \label{fig:remove_urls}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.6]{images/snapshots/clean_sentence_anchors.png}
+  \includegraphics[scale=0.6]{images/snapshots/preprocessing/clean_sentence_anchors.png}
   \caption{nettoyage syntaxique des phrases mal commencées/terminées d'un document}
   \label{fig:clean_sentence_anchors}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.45]{images/snapshots/remove_non_ascii.png}
+  \includegraphics[scale=0.45]{images/snapshots/preprocessing/remove_non_ascii.png}
   \caption{normalisation Unicode, et encodage ASCII des tokens d'un document}
   \label{fig:remove_non_ascii}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.6]{images/snapshots/lowercase.png}
+  \includegraphics[scale=0.6]{images/snapshots/preprocessing/lowercase.png}
   \caption{conversion en minuscule des tokens d'un document}
   \label{fig:lowercase}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.45]{images/snapshots/before_split_characterset.png}
+  \includegraphics[scale=0.45]{images/snapshots/preprocessing/before_split_characterset.png}
   \caption{suppression des caractères de ponctuation, avant le découpage de tokens composés}
   \label{fig:before_split_characterset}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.45]{images/snapshots/after_split_characterset.png}
+  \includegraphics[scale=0.45]{images/snapshots/preprocessing/after_split_characterset.png}
   \caption{découpage des tokens composés}
   \label{fig:after_split_characterset}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.5]{images/snapshots/replace_numbers.png}
+  \includegraphics[scale=0.5]{images/snapshots/preprocessing/replace_numbers.png}
   \caption{remplacement des tokens désignant des chiffres par leurs équivalents en lettres}
   \label{fig:replace_numbers}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.5]{images/snapshots/remove_punctuation.png}
+  \includegraphics[scale=0.5]{images/snapshots/preprocessing/remove_punctuation.png}
   \caption{suppression des caractères de ponctuation}
   \label{fig:remove_punctuation}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.4]{images/snapshots/remove_stopwords.png}
+  \includegraphics[scale=0.4]{images/snapshots/preprocessing/remove_stopwords.png}
   \caption{suppression des stopwords}
   \label{fig:remove_stopwords}
 \end{figure}
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.4]{images/snapshots/lemmatization.png}
+  \includegraphics[scale=0.4]{images/snapshots/preprocessing/lemmatization.png}
   \caption{lemmatization en utilisant le POS-Tagging}
   \label{fig:lemmatization}
+\end{figure}
+
+\chapter{Snapshots des évaluations des classifieurs}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/snapshots/predictions/logistic_regression/training_set_results.png}
+  \caption{Résultats et évaluations de Logistic Regression sur le jeu de test lors de l'apprentissage}
+  \label{fig:lr_fit_test}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/snapshots/predictions/logistic_regression/project_dataset_results.png}
+  \caption{Résultats et évaluations de Logistic Regression sur le dataset de test du projet}
+  \label{fig:lr_project_dataset}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/snapshots/predictions/logistic_regression/imdb_dataset_results.png}
+  \caption{Résultats et évaluations de Logistic Regression sur le dataset IMDB}
+  \label{fig:lr_imdb_dataset}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/snapshots/predictions/gaussian_naive_bayes/training_set_results.png}
+  \caption{Résultats et évaluations de Gaussian Naive Bayes sur le jeu de test lors de l'apprentissage}
+  \label{fig:gnb_fit_test}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/snapshots/predictions/gaussian_naive_bayes/project_dataset_results.png}
+  \caption{Résultats et évaluations de Gaussian Naive Bayes sur le dataset de test du projet}
+  \label{fig:gnb_project_dataset}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/snapshots/predictions/gaussian_naive_bayes/imdb_dataset_results.png}
+  \caption{Résultats et évaluations de Gaussian Naive Bayes sur le dataset IMDB}
+  \label{fig:gnb_imdb_dataset}
 \end{figure}
 
 \end{appendices}

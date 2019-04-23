@@ -1,0 +1,18 @@
+GaussianNB classifier prediction of project dataset started at 2019-04-19 11:53:50.302724
+
+Time taken to complete prediction: 42.45877385139465 seconds
+
+Accuracy: 0.844
+Confusion Matrix
+[[1666  334]
+ [ 290 1710]]
+
+Classification Report
+              precision    recall  f1-score   support
+
+          -1       0.85      0.83      0.84      2000
+           1       0.84      0.85      0.85      2000
+
+   micro avg       0.84      0.84      0.84      4000
+   macro avg       0.84      0.84      0.84      4000
+weighted avg       0.84      0.84      0.84      4000

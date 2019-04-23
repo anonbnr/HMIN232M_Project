@@ -1,0 +1,18 @@
+LogisticRegression classifier prediction of project dataset started at 2019-04-19 11:53:10.198264
+
+Time taken to complete prediction: 40.0956335067749 seconds
+
+Accuracy: 0.895
+Confusion Matrix
+[[1770  230]
+ [ 190 1810]]
+
+Classification Report
+              precision    recall  f1-score   support
+
+          -1       0.90      0.89      0.89      2000
+           1       0.89      0.91      0.90      2000
+
+   micro avg       0.90      0.90      0.90      4000
+   macro avg       0.90      0.90      0.89      4000
+weighted avg       0.90      0.90      0.89      4000
