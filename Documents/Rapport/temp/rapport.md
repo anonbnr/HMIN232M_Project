@@ -47,8 +47,13 @@ Nous avons pas eut le temps d'implémenter le traitement de ces deux cas qui nou
 
 ### 3.2 Une possibilité de traitement de l'ironie
 
+
 - https://github.com/MirunaPislar/Sarcasm-Detection
 
 ---
 ## Conclusion
 ---
+
+L'analyse des sentiments est un domaine en pleine évolution avec diverses applications. Cette tâche représente un challenge en raison de son traitement automatique du langage naturelle. Au cours de ces dernières années, il y a eut beaucoup de progrès à ce niveau afin de répondre à une forte demande des compagnies ou bien de clients qui recherchent l'opinion générale sur un sujet.
+
+Malgré le fait que nous ayons utilisé que des modèles simplifié d'unigram et de bigram, nous avons obtenu de bons scores de précision. Nous pouvons cependant amélioré ce score par différentes techniques comme une étude plus poussée du POS qui nous permettrait de réduire nos features à ceux qui seraient le plus pertinent durant l'apprentissage des modèles.
