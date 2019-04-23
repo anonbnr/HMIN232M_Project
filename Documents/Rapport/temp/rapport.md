@@ -1,75 +1,28 @@
 # Classification de documents d'opinions
 
 ---
-## Introduction
----
-
-On retrouve sur internet un grand nombre d'informations qui peuvent être de type numérique mais aussi, et surtout, textuelle qui se divise en deux principaux domaines : faits et opinions. D'un côté nous avons les faits qui reposent sur l'objectivité des données et de l'autre, les opinions qui représentent le sentiment de son auteur. 
-
-De plus en plus de sites web offrent la possibilité aux clients de laisser un avis sur un produit par exemple. Dans ces avis, nous avons aussi une note qui représente la satisfaction du client qui est une donnée facilement représentable et interprétable. Cependant, une fouille des avis subjectifs nous apportent des informations supplmentaires sur le sentiment des clients où l'on peut en tirer les défauts et les avantages du produit. Ceci permet aux vendeurs d'avoir une idée beaucoup plus précise des attentes de leur clientèle et de mieux y répondrent.
-
-L'analyse du sentiment de l'avis d'un internaute se fait de manière naturelle pour un être humain. Cependant, le nombre abondant de données qui doit être analyser ne peut être fait par ce dernier. Pour résoudre ce problème, un apprentissage automatique du langage naturel à une machine est inévitable car elle peut traiter une très grande quantitée de données par seconde. Ces techniques permettent de récolter des statistiques ou bien de trouver des schémas dans le texte qui révèlent son orientation. 
-
-L'objectif de ce projet est de créer une intelligence artificielle qui permettrait, à partir d'une phrase, de reconnaître la polarité de celle-ci : est-ce un avis positif ou bien négatif ? Comment lui apprendre à reconnaître la négation ou bien encore plus complexe, le sarcasme ?  Nous essaierons d'y répondre par la suite.
-
----
-## 1. Pré-traitements des données 
----
-### 1.1 Préparation à la tokenisation
-
-- Contractions
-- HTML (balise, url...)
-
-`screenshot des fonctions`
-
-### 1.2 Normalisation
-
-- Tokenisation
-- Transformation des nombres en lettres 
-- Ponctuation 
-- Stopwords
-
-`screenshot avant/après tokenisation`
-
-### 1.3 Lemmatisation
-
-- BOW
-- Lemmatisation
-- Wordnet
-
-`screenshot avant/après lemmatisation`
-
----
 ## 2. Apprentissage du modèle
 ---
 
-- https://www.scss.tcd.ie/Khurshid.Ahmad/Research/Sentiments/K_Teams_Buchraest/mvie%20review%20review.pdf
-- https://nlpforhackers.io/sentiment-analysis-intro/
-- https://www.learndatasci.com/tutorials/predicting-reddit-news-sentiment-naive-bayes-text-classifiers/
-- 
+### 2.1 Vectorisation et sélection des features 
 
-### 2.1 Vectorisation
+Une fois nos documents nettoyés, on a besoin de transformer les données textuelles en features ayant une probabilité en tant que valeur afin qu'elles soient interprétées dans nos les modèles par la suite.
 
-- TFIDF
-- Paramètre (min_df, ngram pour le traitement des négations)
+#### Documents to matrix of TF-IDF features 
 
-### 2.1-BIS Feature engineering
+TF-IDF (Term Frequency-Inverse Document Frequency) est une méthode de pondération souvent utilisée dans la fouille de texte et nous permet d'évaluer l'importance d'un terme contenu dans un document, relativement à un corpus. Cette mesure statistique est calculée par la multiplcation du nombre d'occurences du mot dans le document par une variation de la fréquence du mot dans le corpus; et se code de la manière suivante :
 
-- https://machinelearningmastery.com/discover-feature-engineering-how-to-engineer-features-and-how-to-get-good-at-it/ 
+```
+vectorizer = TfidfVectorizer(ngram_range = (1,2), min_df = 12)
+```
 
-### 2.2 Cross Validation  
+#### Gestion de la négation
 
-- Evaluation des résultats
+Le premier paramètre de cette fonction permet de prendre en compte non seulement le mot mais 2-mot, c'est-à-dire le mot et le mot qui suit en tant que feature. Cette technique permet de prendre en compte la négation dans une suite de mots du type de motif suivant `not mot`, où mot est un mot quelconque
 
-`screenshot du résultat de la Cross Validation`
+#### Sélection des features
 
-- Optimisation des paramètres **(GridSearch)**
-
-`screenshot du résultat du calibrage`
-
-### 2.3 Sauveguarde du modèle 
-
-- Pipeline
+A la construction du vocabulaire des features, nous allons sélectionnés uniquement ceux dont leur fréquence dans le corpus est supérieur ou égale à la valeur affectée au second paramètre `min_df`. En conséquent, nous pouvons éliminer les features non pertinents afin d'affiner ceux que nous avons sélectionnés afin d'obtenir une meilleure précision par nos modèles.
 
 ---
 ## 3. Optimisation 
@@ -77,16 +30,22 @@ L'objectif de ce projet est de créer une intelligence artificielle qui permettr
 
 ### 3.1 WordCloud
 
-2 interprétations possibles à cette visualisation : 
+Afin d'analyser visuellement notre donnée, nous avons utiliser **WordCloud** qui nous permet d'afficher les mots les plus fréquents dans les avis positifs et négatifs [Voir figure 1 & 2]. Cette visualisation nous permettra de mieux configurer les fonctions de prétraitement, notamment la liste des stopwords qui pourra être améliorer. 
 
-- ironie
-- avis à plusieurs phrases dont la polarité est différente 
+*Positif*  
+[Figure 1]
 
-=> A prendre en compte sinon faussage des résultats (perte de précision, fiabilité?)
-   
-`screenshot des wordcloud` + **commentaires**
+*Négatif*  
+[Figure 2]
 
-### 3.2 Traitement de l'ironie
+De ces visualisations, nous avons remarqué des mots à polariter négative dans les avis positifs et inversement. Nous sommes tombés sur deux conclusions qui sont les suivantes :
+
+- Il y a beaucoup d'irones dans les avis.
+- Les avis sont de grandes tailles et il faudrait faire une analyse de phrase subjective parmi ces multiples phrases que se compose ces avis.
+
+Nous avons pas eut le temps d'implémenter le traitement de ces deux cas qui nous auraient augmenté la précision de nos modèles.
+
+### 3.2 Une possibilité de traitement de l'ironie
 
 - https://github.com/MirunaPislar/Sarcasm-Detection
 
