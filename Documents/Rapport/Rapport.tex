@@ -291,20 +291,6 @@ Enfin nous évaluons la performance du pipeline en l'essayant sur les mêmes dat
 \section{L'utilisation de Word Clouds}
 Afin de visualiser les features les plus fréquentes, nous utilisons un \textbf{Word Cloud}, un outil de visualisation de données permettant d'afficher les features les plus fréquentes d'un dataset. En particulier, nous l'utilisons pour afficher les features fréquentes dans les avis positifs et négatifs séparément (cf.~Figures \ref{fig:negative_wordcloud} et \ref{fig:positive_wordcloud}). Cette visualisation nous permet de mieux configurer les fonctions de prétraitement, notamment l'ajout de mots neutres apparaissant dans les deux catégories à la liste des \texttt{stopwords}.
 
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[scale=0.5]{images/wordcloud/negative_wordcloud.png}
-  \caption{Les features les plus fréquentes apparaissant dans les avis négatifs du dataset}
-  \label{fig:negative_wordcloud}
-\end{figure}
-
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[scale=0.5]{images/wordcloud/positive_wordcloud.png}
-  \caption{Les features les plus fréquentes apparaissant dans les avis positifs du dataset}
-  \label{fig:positive_wordcloud}
-\end{figure}
-
 \section{Traitement de l'ironie}
 En s'appuyant sur les visualisations des mots fréquents via les \textbf{Word Clouds}, nous avons remarqué la présence de mots fréquents à polarité négative apparaîssant dans les avis positifs et inversement. Nous avons ainsi conclu que :
 \begin{itemize}
@@ -455,6 +441,20 @@ Ainsi, dans le but d'améliorer nos résultats, nous pouvons utiliser des techni
   \includegraphics[scale=0.5]{images/snapshots/predictions/gaussian_naive_bayes/imdb_dataset_results.png}
   \caption{Résultats et évaluations de Gaussian Naive Bayes sur le dataset IMDB}
   \label{fig:gnb_imdb_dataset}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/wordcloud/negative_wordcloud.png}
+  \caption{Les features les plus fréquentes apparaissant dans les avis négatifs du dataset}
+  \label{fig:negative_wordcloud}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.5]{images/wordcloud/positive_wordcloud.png}
+  \caption{Les features les plus fréquentes apparaissant dans les avis positifs du dataset}
+  \label{fig:positive_wordcloud}
 \end{figure}
 
 \end{appendices}
