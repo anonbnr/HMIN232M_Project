@@ -1,0 +1,10 @@
+## Cross validation
+Afin de tester la précision de nos classifieurs candidats, nous effectuons une cross validation sur 10 partitions en utilisant la méthode K Fold.
+Nous choisissons des modèles candidats adaptés à un problème de classification binaire, comme Logistic Regression, SVM et Naive Bayes mais aussi d'autres classifieurs comme Decision Trees, KNN et Random Forest afin d'experimenter et d'observer leurs performances. À travers la cross-validation nous obtenons les meilleurs modèles en termes d'accuracy, en leur paramétrant avec leurs valeurs par défaut.
+
+Voici ainsi les résultats de la cross-validation. Comme on peut le voir, le modèle SVM avec le kernel linéaire, et le modèle Logistic Regression sont les plus précis pour effectuer cette tâche avec des scores moyens d'environ 90% et une déviation standard d'environ 1%. Nous les choisissons ainsi pour l'étape prochaine.
+
+## Calibrage des hyperparamètres
+Afin d'optimiser les performances de nos modèles choisis, nous effectuons un calibrage de leurs hyperparamètres en utilisant un grid search. Les hyperparamètres influenceront les régions de décision des modèles et par conséquent leurs précisions. Pour le modèle Logistic Regression, nous choisissons les hyperparamètres C et penalty correspondant à l'inverse de la régularization et la norme de la pénalité à utiliser. Pour le modèle SVM nous choisissons l'hyperparamètre C. De plus, nous effectuons une cross validation sur 5 partitions.
+
+Voici les résultats du calibrage. Comme nous pouvons le voir, nous avons eu une diminution pour chacun des deux modèles. La raison est liée au nombre de partitions choisis. En fait, nous avons utilisé 10 partitions, alors que dans ce cas c'était 5. Pour la suite, nous choisissons ainsi le modèle Logistic Regression que l'on créera un pipeline, mais aussi le modèle Gaussian Naive Bayes afin de visualiser l'effet de choisir un modèle probabiliste. Je vous laisse ainsi avec Tasnim qui expliquera la création des pipelines et les résultats obtenus.
