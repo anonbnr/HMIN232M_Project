@@ -16,7 +16,7 @@
 %----------------------------------------------------------------------------------------
 %   TITLE INFORMATION
 %----------------------------------------------------------------------------------------
-\title{Analyse de sentiments}
+\title{Analyse des sentiments}
 \subtitle{HMIN232M -- Méthodes de la science des données}
 \author{B. Rima \and E. Youssef \and T. Shaqura}
 \institute[UM]{M1 Informatique AIGLE}
@@ -60,15 +60,15 @@
 \begin{frame}{WordCloud}{Visualisation des données}
 \begin{columns}
 \column{0.5\textwidth}
-\begin{figure}
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=1.0\textwidth]{images/negative_opinions_frequent_words.png}
     \caption{Les mots les plus fréquents dans les avis négatifs}
 \end{figure}
 \column{0.5\textwidth}
-On peut s'attendre à...
+On peut s'attendre à $\dots$
 \begin{itemize}
-    \item Beaucoup d'ironies
+    \item Beaucoup d'ironie
     \item Phrases à polarités différentes dans les avis
 \end{itemize}
 \end{columns}
@@ -76,11 +76,9 @@ On peut s'attendre à...
 
 \section{Vectorisation et sélection des features}
 \begin{frame}{Vectorisation et sélection des features}
-\begin{figure}
+\begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.3]{images/features.png}
-    \caption{Traitement des features}
-    \label{fig:features}
 \end{figure}
 \end{frame}
 
@@ -97,7 +95,7 @@ On peut s'attendre à...
 \begin{frame}{Résultats de la cross-validation}{Cross-validation}
 \begin{table}
   \centering
-  \begin{tabular}{|p{5cm}|c|c|}
+  \begin{tabular}{|l|c|c|}
     \hline
     \textbf{Modèle} & $\mean{score}$ & $\sigma$\\
     \hline
@@ -123,20 +121,27 @@ On peut s'attendre à...
 \section{Calibrage des hyperparamètres}
 \subsection{Principe}
 \begin{frame}{Principe}{Calibrage des hyperparamètres}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.2]{images/gridsearch_hyperparameters.png}
+\end{figure}
 \end{frame}
 
 \subsection{Résultats du calibrage}
 \begin{frame}{Résultats du calibrage}{Calibrage des hyperparamètres}
-\begin{tabular}{|p{5cm}|c|c|}
-  \hline
-  \textbf{Modèle} & $\mean{score}$ & \textbf{Meilleurs calibrages}\\
-  \hline
-  \hline
-  LogisticRegression & 90\% & C = 11.288 ; penalty = $L_2$\\
-  \hline
-  LinearSVC & 90\% & C = 1\\
-  \hline
-\end{tabular}
+\begin{table}
+  \centering
+  \begin{tabular}{|l|c|c|}
+    \hline
+    \textbf{Modèle} & $\mean{score}$ & \textbf{Meilleurs calibrages}\\
+    \hline
+    \hline
+    LogisticRegression & 90\% & C = 11.288 ; penalty = $L_2$\\
+    \hline
+    LinearSVC & 90\% & C = 1\\
+    \hline
+  \end{tabular}
+\end{table}
 \end{frame}
 
 \section{Création des pipelines}
@@ -153,7 +158,8 @@ On peut s'attendre à...
 \begin{figure}[!ht]
   \centering
   \textbf{Accuracy} : 89\% \\
-  \textbf{Temps pour effectuer la prédiction} $\approx41$ secondes.
+  \textbf{Temps pour effectuer la prédiction} $\approx41$ secondes \\
+  \textbf{Matrice de confusion} :
   $$
   \begin{pmatrix}
   1770 & 230 \\
@@ -164,9 +170,9 @@ On peut s'attendre à...
 
 \begin{table}
   \centering
-  \begin{tabular}{|c|c|c|c|c|}
+  \begin{tabular}{|c||c|c|c|c|}
     \hline
-    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+     & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
     \hline
     \hline
     -1 & 90\% & 89\% & 89\% & 2000\\
@@ -188,7 +194,8 @@ On peut s'attendre à...
 \begin{figure}[!ht]
   \centering
   \textbf{Accuracy} : 85\% \\
-  \textbf{Temps pour effectuer la prédiction} $\approx106$ secondes.
+  \textbf{Temps pour effectuer la prédiction} $\approx106$ secondes \\
+  \textbf{Matrice de confusion} :
   $$
   \begin{pmatrix}
   4107 & 893 \\
@@ -199,9 +206,9 @@ On peut s'attendre à...
 
 \begin{table}
   \centering
-  \begin{tabular}{|c|c|c|c|c|}
+  \begin{tabular}{|c||c|c|c|c|}
     \hline
-    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+     & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
     \hline
     \hline
     -1 & 87\% & 82\% & 85\% & 5000\\
@@ -231,7 +238,8 @@ On peut s'attendre à...
 \begin{figure}[!ht]
   \centering
   \textbf{Accuracy} : 84\% \\
-  \textbf{Temps pour effectuer la prédiction} $\approx42$ secondes.
+  \textbf{Temps pour effectuer la prédiction} $\approx42$ secondes \\
+  \textbf{Matrice de confusion} :
   $$
   \begin{pmatrix}
   1666 & 334 \\
@@ -242,9 +250,9 @@ On peut s'attendre à...
 
 \begin{table}
   \centering
-  \begin{tabular}{|c|c|c|c|c|}
+  \begin{tabular}{|c||c|c|c|c|}
     \hline
-    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+     & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
     \hline
     \hline
     -1 & 85\% & 83\% & 84\% & 2000\\
@@ -266,7 +274,8 @@ On peut s'attendre à...
 \begin{figure}[!ht]
   \centering
   \textbf{Accuracy} : 77\% \\
-  \textbf{Temps pour effectuer la prédiction} $\approx106$ secondes.
+  \textbf{Temps pour effectuer la prédiction} $\approx106$ secondes \\
+  \textbf{Matrice de confusion} :
   $$
   \begin{pmatrix}
   3634 & 1366 \\
@@ -277,9 +286,9 @@ On peut s'attendre à...
 
 \begin{table}
   \centering
-  \begin{tabular}{|c|c|c|c|c|}
+  \begin{tabular}{|c||c|c|c|c|}
     \hline
-    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+     & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
     \hline
     \hline
     -1 & 80\% & 73\% & 76\% & 5000\\
@@ -304,5 +313,4 @@ On peut s'attendre à...
     \includegraphics[scale=0.25]{images/conclusion.png}
 \end{figure}
 \end{frame}
-
 \end{document}
