@@ -8,8 +8,6 @@
 \usepackage{amsmath}
 \usetheme{Boadilla} %Boadilla | Bergen | Madrid | Antibes | Hannover | Singapore | Warsaw | Montpellier
 
-\newcommand{\cmark}{\ding{51}}
-\newcommand{\xmark}{\ding{55}}
 \newcommand*\mean[1]{\overline{#1}}
 
 \setcounter{tocdepth}{1}
@@ -39,11 +37,11 @@
 %   INTRODUCTION
 %----------------------------------------------------------------------------------------
 \section{Pré-traitements}
-\subsection{Préparation à la tokenization}
-\begin{frame}{Préparation à la tokenization}{Pré-traitements}
+\subsection{Préparation à la tokenisation}
+\begin{frame}{Préparation à la tokenisation}{Pré-traitements}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.35]{images/preparation_tokenization.png}
+  \includegraphics[scale=0.2]{images/preparation_tokenization.png}
 \end{figure}
 \end{frame}
 
@@ -51,12 +49,12 @@
 \begin{frame}{Tokenisation et normalisation}{Pré-traitements}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.2]{images/tokenization_normalization.png}
+  \includegraphics[scale=0.23]{images/tokenization_normalization.png}
 \end{figure}
 \end{frame}
 
 \section{Visualisation des données}
-\subsection{WordCloud}
+\subsection{Word Cloud}
 \begin{frame}{WordCloud}{Visualisation des données}
 \begin{columns}
 \column{0.5\textwidth}
@@ -101,8 +99,6 @@ On peut s'attendre à $\dots$
     \hline
     \hline
     LinearSVC & 92\% & 1\%\\
-    \hline
-    SGDClassifier & 92\% & 1\%\\
     \hline
     LogisticRegression & 91\% & 0.8\%\\
     \hline
@@ -306,8 +302,8 @@ On peut s'attendre à $\dots$
 \end{frame}
 
 \section{Conclusion}
-\subsection{Schéma globale de nos traitements}
-\begin{frame}{Schéma globale de nos traitements}{Conclusion}
+\subsection{Schéma  de nos traitements}
+\begin{frame}{Schéma global de nos traitements}{Conclusion}
 \begin{figure}
     \centering
     \includegraphics[scale=0.25]{images/conclusion.png}
@@ -317,13 +313,19 @@ On peut s'attendre à $\dots$
 \subsection{Perspectives}
 \begin{frame}{Perspectives}{Conclusion}
 \begin{itemize}
-    \item Named Entity Recognition (NER)
-    \item Traitement des ponctuations (?, !, ..., etc)
-    \item SentiWordNet
-    \begin{example}
-        I love being cheated on !
-    \end{example}
+    \item \textbf{Named Entity Recognition} (\textbf{NER})
+    \item Traitement des amplificateurs
+    \begin{description}
+      \item [ponctuation] ?, !, $\dots$, etc.
+      \item [majuscules] \textit{I HATE THIS STUPID WORLD}
+    \end{description}
+    \item Extraction des phrases subjectives
+    \item \texttt{SentiWordNet}.
 \end{itemize}
+
+\begin{example}
+    \textit{I love being cheated on!}
+\end{example}
 \end{frame}
 
 \end{document}
