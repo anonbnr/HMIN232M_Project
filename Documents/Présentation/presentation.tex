@@ -9,14 +9,17 @@
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
+\newcommand*\mean[1]{\overline{#1}}
+
+\setcounter{tocdepth}{1}
 %----------------------------------------------------------------------------------------
 %   TITLE INFORMATION
 %----------------------------------------------------------------------------------------
-\title{Classification de données textuelles}
+\title{Analyse de sentiments}
 \subtitle{HMIN232M -- Méthodes de la science des données}
 \author{B. Rima \and E. Youssef \and T. Shaqura}
 \institute[UM]{M1 Informatique AIGLE}
-\date{28 avril 2019}
+\date{25 avril 2019}
 
 \begin{document}
 %----------------------------------------------------------------------------------------
@@ -34,40 +37,117 @@
 %----------------------------------------------------------------------------------------
 %   INTRODUCTION
 %----------------------------------------------------------------------------------------
-\section{Visulation des données}
-\subsection{Contexte}
-\begin{frame}{Contexte}{Classifieur 1}
+\section{Pré-traitements}
+\subsection{Préparation à la tokenization}
+\begin{frame}{Préparation à la tokenization}{Pré-traitements}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.35]{images/preparation_tokenization.png}
+\end{figure}
+\end{frame}
+
+\subsection{Tokenisation et normalisation}
+\begin{frame}{Tokenisation et normalisation}{Pré-traitements}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.2]{images/tokenization_normalization.png}
+\end{figure}
+\end{frame}
+
+\section{Visualisation des données}
+\subsection{WordCloud}
+\begin{frame}{WordCloud}{Visualisation des données}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/negative_opinions_frequent_words.png}
+    \caption{Les mots les plus fréquents dans les avis négatifs}
+\end{figure}
+\column{0.5\textwidth}
+On peut s'attendre à...
+\begin{itemize}
+    \item Beaucoup d'ironies
+    \item Phrases à polarités différentes dans les avis
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\section{Cross-validation}
+\subsection{Principe}
+\begin{frame}{Principe}{Cross-validation}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.2]{images/cross_validation.png}
+\end{figure}
+\end{frame}
+
+\subsection{Résultats de la cross-validation}
+\begin{frame}{Résultats de la cross-validation}{Cross-validation}
+\begin{table}
+  \centering
+  \begin{tabular}{|p{5cm}|c|c|}
+    \hline
+    \textbf{Modèle} & $\mean{score}$ & $\sigma$\\
+    \hline
+    \hline
+    LinearSVC & 92\% & 1\%\\
+    \hline
+    SGDClassifier & 92\% & 1\%\\
+    \hline
+    LogisticRegression & 91\% & 0.8\%\\
+    \hline
+    GaussianNB & 84\% & 1\%\\
+    \hline
+    RandomForestClassifier & 81\% & 1\%\\
+    \hline
+    KNeighborsClassifier & 79\% & 1\%\\
+    \hline
+    DecisionTreeClassifier & 75\% & 0.8\%\\
+    \hline
+  \end{tabular}
+\end{table}
+\end{frame}
+
+\section{Calibrage des hyperparamètres}
+\subsection{Principe}
+\begin{frame}{Principe}{Calibrage des hyperparamètres}
+\end{frame}
+
+\subsection{Résultats du calibrage}
+\begin{frame}{Résultats du calibrage}{Calibrage des hyperparamètres}
+\begin{tabular}{|p{5cm}|c|c|}
+  \hline
+  \textbf{Modèle} & $\mean{score}$ & \textbf{Meilleurs calibrages}\\
+  \hline
+  \hline
+  LogisticRegression & 90\% & C = 11.288 ; penalty = $L_2$\\
+  \hline
+  LinearSVC & 90\% & C = 1\\
+  \hline
+\end{tabular}
+\end{frame}
+
+\section{Création des pipelines}
+\subsection{Pipeline pour Logistic Regression}
+\begin{frame}{Pipeline pour Logistic Regression}{Création des pipelines}
+\end{frame}
+
+\subsection{Pipeline pour Gaussian Naive Bayes}
+\begin{frame}{Pipeline pour Gaussian Naive Bayes}{Création des pipelines}
 \end{frame}
 
 \subsection{Résultats}
-\begin{frame}{Résultats}{Classifieur 1}
+\begin{frame}{Résultats}{Création des pipelines}
 \end{frame}
 
-\section{Classifieur 2}
-\subsection{Contexte}
-\begin{frame}{Contexte}{Classifieur 2}
-\end{frame}
-
-\subsection{Résultats}
-\begin{frame}{Résultats}{Classifieur 2}
-\end{frame}
-
-\section{Classifieur 3}
-\subsection{Contexte}
-\begin{frame}{Contexte}{Classifieur 3}
-\end{frame}
-
-\subsection{Résultats}
-\begin{frame}{Résultats}{Classifieur 3}
-\end{frame}
-
-\section{Classifieur 4}
-\subsection{Contexte}
-\begin{frame}{Contexte}{Classifieur 4}
-\end{frame}
-
-\subsection{Résultats}
-\begin{frame}{Résultats}{Classifieur 4}
+\section{Conclusion}
+\subsection{Schéma globale de nos traitements}
+\begin{frame}{Schéma globale de nos traitements}{Conclusion}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.25]{images/conclusion.png}
+\end{figure}
 \end{frame}
 
 \end{document}
