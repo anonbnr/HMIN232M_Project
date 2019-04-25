@@ -5,7 +5,8 @@
 \usepackage{xcolor}
 \usepackage{pifont}
 \usepackage{float}
-\usetheme{Singapore} %Boadilla | Bergen | Madrid | Antibes | Hannover | Singapore | Warsaw
+\usepackage{amsmath}
+\usetheme{Boadilla} %Boadilla | Bergen | Madrid | Antibes | Hannover | Singapore | Warsaw | Montpellier
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
@@ -73,6 +74,16 @@ On peut s'attendre à...
 \end{columns}
 \end{frame}
 
+\section{Vectorisation et sélection des features}
+\begin{frame}{Vectorisation et sélection des features}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.3]{images/features.png}
+    \caption{Traitement des features}
+    \label{fig:features}
+\end{figure}
+\end{frame}
+
 \section{Cross-validation}
 \subsection{Principe}
 \begin{frame}{Principe}{Cross-validation}
@@ -131,14 +142,158 @@ On peut s'attendre à...
 \section{Création des pipelines}
 \subsection{Pipeline pour Logistic Regression}
 \begin{frame}{Pipeline pour Logistic Regression}{Création des pipelines}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.18]{images/pipeline_logistic_regression.png}
+\end{figure}
+\end{frame}
+
+\subsection{Résultats pour le dataset du challenge}
+\begin{frame}{Résultats pour le dataset du challenge}{Création des pipelines}
+\begin{figure}[!ht]
+  \centering
+  \textbf{Accuracy} : 89\% \\
+  \textbf{Temps pour effectuer la prédiction} $\approx41$ secondes.
+  $$
+  \begin{pmatrix}
+  1770 & 230 \\
+  190 & 1810
+  \end{pmatrix}
+  $$
+\end{figure}
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+    \hline
+    \hline
+    -1 & 90\% & 89\% & 89\% & 2000\\
+    \hline
+    1 & 89\% & 91\% & 90\% & 2000\\
+    \hline
+    Micro avg & 90\% & 90\% & 90\% & 4000\\
+    \hline
+    Macro avg & 90\% & 90\% & 89\% & 4000\\
+    \hline
+    Weighted avg & 90\% & 90\% & 89\% & 4000\\
+    \hline
+  \end{tabular}
+\end{table}
+\end{frame}
+
+\subsection{Résultats pour le dataset IMDB}
+\begin{frame}{Résultats pour le dataset IMDB}{Création des pipelines}
+\begin{figure}[!ht]
+  \centering
+  \textbf{Accuracy} : 85\% \\
+  \textbf{Temps pour effectuer la prédiction} $\approx106$ secondes.
+  $$
+  \begin{pmatrix}
+  4107 & 893 \\
+  602 & 4398
+  \end{pmatrix}
+  $$
+\end{figure}
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+    \hline
+    \hline
+    -1 & 87\% & 82\% & 85\% & 5000\\
+    \hline
+    1 & 83\% & 88\% & 85\% & 5000\\
+    \hline
+    Micro avg & 85\% & 85\% & 85\% & 10000\\
+    \hline
+    Macro avg & 85\% & 85\% & 85\% & 10000\\
+    \hline
+    Weighted avg & 85\% & 85\% & 85\% & 10000\\
+    \hline
+  \end{tabular}
+\end{table}
 \end{frame}
 
 \subsection{Pipeline pour Gaussian Naive Bayes}
 \begin{frame}{Pipeline pour Gaussian Naive Bayes}{Création des pipelines}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.18]{images/pipeline_gaussian_naive_bayes.png}
+\end{figure}
 \end{frame}
 
-\subsection{Résultats}
-\begin{frame}{Résultats}{Création des pipelines}
+\subsection{Résultats pour le dataset du challenge}
+\begin{frame}{Résultats pour le dataset du challenge}{Création des pipelines}
+\begin{figure}[!ht]
+  \centering
+  \textbf{Accuracy} : 84\% \\
+  \textbf{Temps pour effectuer la prédiction} $\approx42$ secondes.
+  $$
+  \begin{pmatrix}
+  1666 & 334 \\
+  290 & 1710
+  \end{pmatrix}
+  $$
+\end{figure}
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+    \hline
+    \hline
+    -1 & 85\% & 83\% & 84\% & 2000\\
+    \hline
+    1 & 84\% & 85\% & 85\% & 2000\\
+    \hline
+    Micro avg & 84\% & 84\% & 84\% & 4000\\
+    \hline
+    Macro avg & 84\% & 84\% & 84\% & 4000\\
+    \hline
+    Weighted avg & 84\% & 84\% & 84\% & 4000\\
+    \hline
+  \end{tabular}
+\end{table}
+\end{frame}
+
+\subsection{Résultats pour le dataset IMDB}
+\begin{frame}{Résultats pour le dataset IMDB}{Création des pipelines}
+\begin{figure}[!ht]
+  \centering
+  \textbf{Accuracy} : 77\% \\
+  \textbf{Temps pour effectuer la prédiction} $\approx106$ secondes.
+  $$
+  \begin{pmatrix}
+  3634 & 1366 \\
+  914 & 4086
+  \end{pmatrix}
+  $$
+\end{figure}
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Value} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support}\\
+    \hline
+    \hline
+    -1 & 80\% & 73\% & 76\% & 5000\\
+    \hline
+    1 & 75\% & 82\% & 78\% & 5000\\
+    \hline
+    Micro avg & 77\% & 77\% & 77\% & 10000\\
+    \hline
+    Macro avg & 77\% & 77\% & 77\% & 10000\\
+    \hline
+    Weighted avg & 77\% & 77\% & 77\% & 10000\\
+    \hline
+  \end{tabular}
+\end{table}
 \end{frame}
 
 \section{Conclusion}
